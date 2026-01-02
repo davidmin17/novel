@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 interface Novel {
@@ -32,29 +32,20 @@ export default function NovelManagement({
   currentCategory,
 }: Props) {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [search, setSearch] = useState(currentSearch)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    const params = new URLSearchParams(searchParams.toString())
-    if (search) {
-      params.set('search', search)
-    } else {
-      params.delete('search')
-    }
-    params.delete('page')
+    const params = new URLSearchParams()
+    if (search) params.set('search', search)
+    if (currentCategory) params.set('category', currentCategory)
     router.push(`/admin/novels?${params.toString()}`)
   }
 
   const handleCategoryChange = (category: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (category) {
-      params.set('category', category)
-    } else {
-      params.delete('category')
-    }
-    params.delete('page')
+    const params = new URLSearchParams()
+    if (currentSearch) params.set('search', currentSearch)
+    if (category) params.set('category', category)
     router.push(`/admin/novels?${params.toString()}`)
   }
 
@@ -223,4 +214,3 @@ export default function NovelManagement({
     </div>
   )
 }
-

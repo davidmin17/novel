@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState, useCallback } from 'react'
 
 interface Props {
   currentCategory?: string
@@ -15,23 +15,23 @@ export default function SearchAndFilter({
   currentSearch,
 }: Props) {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [search, setSearch] = useState(currentSearch)
 
-  useEffect(() => {
-    setSearch(currentSearch)
-  }, [currentSearch])
+  const updateParams = useCallback((key: string, value: string) => {
+    const params = new URLSearchParams()
 
-  const updateParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
+    // 현재 값들 유지
+    if (currentCategory && key !== 'category') params.set('category', currentCategory)
+    if (currentSort && key !== 'sort') params.set('sort', currentSort)
+    if (currentSearch && key !== 'search') params.set('search', currentSearch)
+
+    // 새 값 설정
     if (value) {
       params.set(key, value)
-    } else {
-      params.delete(key)
     }
-    params.delete('page') // 필터 변경 시 첫 페이지로
+
     router.push(`/novels?${params.toString()}`)
-  }
+  }, [router, currentCategory, currentSort, currentSearch])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -106,4 +106,3 @@ export default function SearchAndFilter({
     </div>
   )
 }
-

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 interface User {
@@ -30,19 +30,15 @@ export default function UserManagement({
   currentSearch,
 }: Props) {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [search, setSearch] = useState(currentSearch)
   const [isLoading, setIsLoading] = useState<string | null>(null)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams()
     if (search) {
       params.set('search', search)
-    } else {
-      params.delete('search')
     }
-    params.delete('page')
     router.push(`/admin/users?${params.toString()}`)
   }
 
@@ -174,4 +170,3 @@ export default function UserManagement({
     </div>
   )
 }
-
