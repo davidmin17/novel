@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자 역할
+enum Role {
+  USER
+  ADMIN
+}
+
+// 소설 카테고리
+enum Category {
+  SHORT    // 단편
+  LONG     // 장편
+}
+
+// 사용자 모델
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  nickname  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  novels    Novel[]
+  chapters  Chapter[]
+  comments  Comment[]
+  votes     Vote[]
+
+  @@map("users")
+}
+
+// 소설 모델
+model Novel {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  content     String?  @db.Text  // 단편 소설의 경우 직접 내용 저장
+  category    Category
+  coverImage  String?
+  viewCount   Int      @default(0)
+  likeCount   Int      @default(0)
+  dislikeCount Int     @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  chapters    Chapter[]
+  comments    Comment[]
+  votes       Vote[]
+
+  @@index([authorId])
+  @@index([category])
+  @@index([createdAt])
+  @@map("novels")
+}
+
+// 챕터 모델 (장편 소설용)
+model Chapter {
+  id          String   @id @default(cuid())
+  chapterNum  Int
+  title       String
+  content     String   @db.Text
+  viewCount   Int      @default(0)
+  likeCount   Int      @default(0)
+  dislikeCount Int     @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  novelId     String
+  novel       Novel    @relation(fields: [novelId], references: [id], onDelete: Cascade)
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments    Comment[]
+  votes       Vote[]
+
+  @@unique([novelId, chapterNum])
+  @@index([novelId])
+  @@index([authorId])
+  @@map("chapters")
+}
+
+// 댓글 모델
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  novelId   String?
+  novel     Novel?   @relation(fields: [novelId], references: [id], onDelete: Cascade)
+
+  chapterId String?
+  chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  // 대댓글 기능
+  parentId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+
+  @@index([authorId])
+  @@index([novelId])
+  @@index([chapterId])
+  @@map("comments")
+}
+
+// 투표 모델 (좋아요/싫어요)
+model Vote {
+  id        String   @id @default(cuid())
+  isLike    Boolean  // true: 좋아요, false: 싫어요
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  novelId   String?
+  novel     Novel?   @relation(fields: [novelId], references: [id], onDelete: Cascade)
+
+  chapterId String?
+  chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, novelId])
+  @@unique([userId, chapterId])
+  @@index([novelId])
+  @@index([chapterId])
+  @@map("votes")
+}
