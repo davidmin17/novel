@@ -44,61 +44,41 @@ function LoginForm() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="card-vintage p-8 rounded-lg">
+      <div className="bg-black/75 p-12 rounded">
         {/* 헤더 */}
-        <div className="text-center mb-8">
-          <div className="text-4xl mb-4">🔐</div>
-          <h1 className="font-display text-3xl text-gold mb-2">로그인</h1>
-          <p className="text-sepia-muted text-sm">
-            묵향서원에 오신 것을 환영합니다
-          </p>
-        </div>
+        <h1 className="text-3xl font-bold text-white mb-8">로그인</h1>
 
         {/* 에러 메시지 */}
         {error && (
-          <div className="mb-6 p-4 rounded bg-velvet/20 border border-velvet text-sepia text-sm">
+          <div className="mb-4 p-4 rounded bg-[#e87c03]/20 border border-[#e87c03] text-[#e87c03] text-sm">
             {error}
           </div>
         )}
 
         {/* 폼 */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm text-sepia-muted mb-2"
-            >
-              아이디
-            </label>
             <input
               type="text"
-              id="username"
               value={formData.username}
               onChange={(e) =>
                 setFormData({ ...formData, username: e.target.value })
               }
-              className="input-vintage w-full px-4 py-3 rounded"
-              placeholder="아이디를 입력하세요"
+              className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+              placeholder="아이디"
               required
             />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm text-sepia-muted mb-2"
-            >
-              비밀번호
-            </label>
             <input
               type="password"
-              id="password"
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
-              className="input-vintage w-full px-4 py-3 rounded"
-              placeholder="비밀번호를 입력하세요"
+              className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+              placeholder="비밀번호"
               required
             />
           </div>
@@ -106,20 +86,17 @@ function LoginForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary w-full py-3 rounded font-medium disabled:opacity-50"
+            className="btn-primary w-full py-3 rounded font-semibold text-base disabled:opacity-50 mt-6"
           >
             {isLoading ? '로그인 중...' : '로그인'}
           </button>
         </form>
 
-        {/* 구분선 */}
-        <div className="divider-ornate my-8" />
-
         {/* 회원가입 링크 */}
-        <p className="text-center text-sepia-muted text-sm">
-          아직 회원이 아니신가요?{' '}
-          <Link href="/auth/register" className="text-gold hover:text-gold-light">
-            회원가입
+        <p className="text-[#b3b3b3] mt-8">
+          처음이신가요?{' '}
+          <Link href="/auth/register" className="text-white hover:underline">
+            지금 가입하세요.
           </Link>
         </p>
       </div>
@@ -129,9 +106,9 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 animate-fade-in">
+    <div className="min-h-screen flex items-center justify-center px-4 py-24 bg-[#141414]">
       <Suspense fallback={
-        <div className="text-gold">로딩 중...</div>
+        <div className="text-white">로딩 중...</div>
       }>
         <LoginForm />
       </Suspense>

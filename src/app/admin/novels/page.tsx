@@ -50,27 +50,28 @@ export default async function AdminNovelsPage({ searchParams }: Props) {
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 animate-fade-in">
-      <div className="flex justify-between items-start mb-8">
-        <div>
-          <h1 className="font-display text-3xl text-gold mb-2">📚 작품 관리</h1>
-          <p className="text-sepia-muted">
-            총 <span className="text-gold">{totalCount}</span>개의 작품
-          </p>
+    <div className="min-h-screen pt-20 pb-12 px-4 animate-fade-in">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-start mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">작품 관리</h1>
+            <p className="text-[#808080]">
+              총 <span className="text-white">{totalCount}</span>개의 작품
+            </p>
+          </div>
+          <Link href="/admin" className="btn-secondary px-4 py-2 rounded text-sm">
+            ← 대시보드
+          </Link>
         </div>
-        <Link href="/admin" className="btn-secondary px-4 py-2 rounded text-sm">
-          ← 대시보드
-        </Link>
-      </div>
 
-      <NovelManagement
-        novels={novels}
-        currentPage={page}
-        totalPages={totalPages}
-        currentSearch={search}
-        currentCategory={category}
-      />
+        <NovelManagement
+          novels={novels}
+          currentPage={page}
+          totalPages={totalPages}
+          currentSearch={search}
+          currentCategory={category}
+        />
+      </div>
     </div>
   )
 }
-

@@ -9,7 +9,7 @@ interface Props {
 export default function Pagination({ currentPage, totalPages, baseUrl }: Props) {
   const getPageNumbers = () => {
     const pages: (number | string)[] = []
-    const showPages = 5 // 표시할 페이지 수
+    const showPages = 5
 
     if (totalPages <= showPages) {
       for (let i = 1; i <= totalPages; i++) {
@@ -37,59 +37,56 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Props) 
   }
 
   return (
-    <div className="flex justify-center items-center space-x-2">
+    <div className="flex justify-center items-center space-x-1">
       {/* 이전 페이지 */}
       {currentPage > 1 ? (
         <Link
           href={`${baseUrl}page=${currentPage - 1}`}
-          className="btn-secondary px-3 py-2 rounded text-sm"
+          className="px-3 py-2 rounded bg-[#333] text-[#e5e5e5] hover:bg-[#404040] text-sm transition-colors"
         >
-          ← 이전
+          ‹
         </Link>
       ) : (
-        <span className="px-3 py-2 text-sepia-muted/50 text-sm">← 이전</span>
+        <span className="px-3 py-2 text-[#808080] text-sm">‹</span>
       )}
 
       {/* 페이지 번호 */}
-      <div className="flex items-center space-x-1">
-        {getPageNumbers().map((page, index) => {
-          if (page === '...') {
-            return (
-              <span key={`ellipsis-${index}`} className="px-3 py-2 text-sepia-muted">
-                ⋯
-              </span>
-            )
-          }
-
-          const pageNum = page as number
+      {getPageNumbers().map((page, index) => {
+        if (page === '...') {
           return (
-            <Link
-              key={pageNum}
-              href={`${baseUrl}page=${pageNum}`}
-              className={`px-3 py-2 rounded text-sm transition-all ${
-                currentPage === pageNum
-                  ? 'bg-gold text-parchment-dark font-medium'
-                  : 'btn-secondary hover:bg-gold/10'
-              }`}
-            >
-              {pageNum}
-            </Link>
+            <span key={`ellipsis-${index}`} className="px-3 py-2 text-[#808080]">
+              ⋯
+            </span>
           )
-        })}
-      </div>
+        }
+
+        const pageNum = page as number
+        return (
+          <Link
+            key={pageNum}
+            href={`${baseUrl}page=${pageNum}`}
+            className={`px-3 py-2 rounded text-sm transition-colors ${
+              currentPage === pageNum
+                ? 'bg-white text-black font-medium'
+                : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
+            }`}
+          >
+            {pageNum}
+          </Link>
+        )
+      })}
 
       {/* 다음 페이지 */}
       {currentPage < totalPages ? (
         <Link
           href={`${baseUrl}page=${currentPage + 1}`}
-          className="btn-secondary px-3 py-2 rounded text-sm"
+          className="px-3 py-2 rounded bg-[#333] text-[#e5e5e5] hover:bg-[#404040] text-sm transition-colors"
         >
-          다음 →
+          ›
         </Link>
       ) : (
-        <span className="px-3 py-2 text-sepia-muted/50 text-sm">다음 →</span>
+        <span className="px-3 py-2 text-[#808080] text-sm">›</span>
       )}
     </div>
   )
 }
-

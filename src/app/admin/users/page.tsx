@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
@@ -53,21 +54,27 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 animate-fade-in">
-      <div className="mb-8">
-        <h1 className="font-display text-3xl text-gold mb-2">👥 회원 관리</h1>
-        <p className="text-sepia-muted">
-          총 <span className="text-gold">{totalCount}</span>명의 회원
-        </p>
-      </div>
+    <div className="min-h-screen pt-20 pb-12 px-4 animate-fade-in">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-start mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">회원 관리</h1>
+            <p className="text-[#808080]">
+              총 <span className="text-white">{totalCount}</span>명의 회원
+            </p>
+          </div>
+          <Link href="/admin" className="btn-secondary px-4 py-2 rounded text-sm">
+            ← 대시보드
+          </Link>
+        </div>
 
-      <UserManagement
-        users={users}
-        currentPage={page}
-        totalPages={totalPages}
-        currentSearch={search}
-      />
+        <UserManagement
+          users={users}
+          currentPage={page}
+          totalPages={totalPages}
+          currentSearch={search}
+        />
+      </div>
     </div>
   )
 }
-

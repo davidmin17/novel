@@ -8,7 +8,7 @@ interface Props {
   chapterId?: string
   likeCount: number
   dislikeCount: number
-  userVote?: boolean // true: 좋아요, false: 싫어요, undefined: 투표 안함
+  userVote?: boolean
   isLoggedIn: boolean
 }
 
@@ -51,7 +51,6 @@ export default function VoteButtons({
       const data = await response.json()
 
       if (response.ok) {
-        // 투표 상태 업데이트
         if (data.action === 'created') {
           if (isLike) {
             setLikeCount((prev) => prev + 1)
@@ -85,18 +84,18 @@ export default function VoteButtons({
   }
 
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex items-center justify-center gap-4">
       {/* 좋아요 버튼 */}
       <button
         onClick={() => handleVote(true)}
         disabled={isLoading}
-        className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+        className={`flex items-center gap-2 px-6 py-3 rounded transition-all ${
           userVote === true
-            ? 'bg-gold/20 border-2 border-gold text-gold'
-            : 'border border-gold-dim text-sepia-muted hover:border-gold hover:text-gold'
+            ? 'bg-white text-black'
+            : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
         } disabled:opacity-50`}
       >
-        <span className="text-xl">👍</span>
+        <span className="text-lg">👍</span>
         <span className="font-medium">{likeCount}</span>
       </button>
 
@@ -104,16 +103,15 @@ export default function VoteButtons({
       <button
         onClick={() => handleVote(false)}
         disabled={isLoading}
-        className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+        className={`flex items-center gap-2 px-6 py-3 rounded transition-all ${
           userVote === false
-            ? 'bg-velvet/20 border-2 border-velvet text-velvet'
-            : 'border border-gold-dim text-sepia-muted hover:border-velvet hover:text-velvet'
+            ? 'bg-white text-black'
+            : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
         } disabled:opacity-50`}
       >
-        <span className="text-xl">👎</span>
+        <span className="text-lg">👎</span>
         <span className="font-medium">{dislikeCount}</span>
       </button>
     </div>
   )
 }
-

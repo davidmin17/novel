@@ -72,7 +72,6 @@ export default async function NovelDetailPage({ params }: Props) {
     notFound()
   }
 
-  // 조회수 증가
   await incrementViewCount(id)
 
   const userVote = await getUserVote(session?.user?.id, id)
@@ -81,85 +80,106 @@ export default async function NovelDetailPage({ params }: Props) {
   const canEdit = isAuthor || isAdmin
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
-      {/* 헤더 */}
-      <div className="card-vintage p-8 rounded-lg mb-8">
-        <div className="flex items-start justify-between mb-4">
-          <span className="text-sm px-3 py-1 rounded bg-leather-accent text-gold-dim">
-            {novel.category === 'SHORT' ? '📝 단편' : '📚 장편'}
-          </span>
-          {canEdit && (
-            <div className="flex gap-2">
-              <Link
-                href={`/novels/${id}/edit`}
-                className="btn-secondary px-3 py-1 rounded text-sm"
-              >
-                수정
-              </Link>
-              {novel.category === 'LONG' && (
-                <Link
-                  href={`/novels/${id}/chapters/write`}
-                  className="btn-primary px-3 py-1 rounded text-sm"
-                >
-                  + 회차 추가
-                </Link>
+    <div className="min-h-screen pt-20 pb-12 animate-fade-in">
+      {/* 히어로 섹션 */}
+      <div className="relative h-[50vh] flex items-end">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#141414] via-transparent to-transparent" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 pb-8 w-full">
+          <div className="flex items-start justify-between">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="badge badge-red">
+                  {novel.category === 'SHORT' ? '단편' : '장편'}
+                </span>
+                {novel.category === 'LONG' && (
+                  <span className="badge badge-dark">
+                    {novel.chapters.length}화
+                  </span>
+                )}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                {novel.title}
+              </h1>
+
+              <div className="flex items-center gap-4 text-[#b3b3b3] text-sm mb-4">
+                <span>{novel.author.nickname}</span>
+                <span>•</span>
+                <span>{new Date(novel.createdAt).toLocaleDateString('ko-KR')}</span>
+                <span>•</span>
+                <span>조회 {novel.viewCount + 1}</span>
+              </div>
+
+              {novel.description && (
+                <p className="text-[#e5e5e5] leading-relaxed">
+                  {novel.description}
+                </p>
               )}
             </div>
-          )}
+
+            {canEdit && (
+              <div className="flex gap-2">
+                <Link
+                  href={`/novels/${id}/edit`}
+                  className="btn-secondary px-4 py-2 rounded text-sm"
+                >
+                  수정
+                </Link>
+                {novel.category === 'LONG' && (
+                  <Link
+                    href={`/novels/${id}/chapters/write`}
+                    className="btn-primary px-4 py-2 rounded text-sm"
+                  >
+                    + 회차 추가
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4">
+        {/* 좋아요/싫어요 */}
+        <div className="py-6 border-b border-[#333]">
+          <VoteButtons
+            novelId={id}
+            likeCount={novel.likeCount}
+            dislikeCount={novel.dislikeCount}
+            userVote={userVote?.isLike}
+            isLoggedIn={!!session}
+          />
         </div>
 
-        <h1 className="font-display text-3xl md:text-4xl text-gold mb-4">
-          {novel.title}
-        </h1>
-
-        <div className="flex flex-wrap items-center gap-4 text-sm text-sepia-muted mb-6">
-          <span>✍️ {novel.author.nickname}</span>
-          <span>📅 {new Date(novel.createdAt).toLocaleDateString('ko-KR')}</span>
-          <span>👁️ {novel.viewCount + 1}</span>
-          <span>💬 {novel._count.comments}</span>
-        </div>
-
-        {novel.description && (
-          <div className="p-4 rounded bg-leather/50 border border-gold-dim/30 mb-6">
-            <p className="text-sepia leading-relaxed">{novel.description}</p>
+        {/* 장편: 회차 목록 / 단편: 본문 */}
+        {novel.category === 'LONG' ? (
+          <div className="py-8">
+            <h2 className="text-xl font-bold text-white mb-6">
+              회차 목록
+            </h2>
+            <ChapterList chapters={novel.chapters} novelId={id} />
+          </div>
+        ) : (
+          <div className="py-8">
+            <div className="novel-content whitespace-pre-wrap">
+              {novel.content || '내용이 없습니다.'}
+            </div>
           </div>
         )}
 
-        {/* 좋아요/싫어요 */}
-        <VoteButtons
-          novelId={id}
-          likeCount={novel.likeCount}
-          dislikeCount={novel.dislikeCount}
-          userVote={userVote?.isLike}
-          isLoggedIn={!!session}
-        />
+        {/* 댓글 섹션 */}
+        <div className="py-8 border-t border-[#333]">
+          <CommentSection
+            novelId={id}
+            comments={novel.comments}
+            isLoggedIn={!!session}
+            currentUserId={session?.user?.id}
+            isAdmin={isAdmin}
+          />
+        </div>
       </div>
-
-      {/* 장편: 회차 목록 / 단편: 본문 */}
-      {novel.category === 'LONG' ? (
-        <div className="card-vintage p-6 rounded-lg mb-8">
-          <h2 className="font-display text-xl text-gold mb-6">
-            📖 회차 목록 ({novel.chapters.length}화)
-          </h2>
-          <ChapterList chapters={novel.chapters} novelId={id} />
-        </div>
-      ) : (
-        <div className="card-vintage p-8 rounded-lg mb-8">
-          <div className="novel-content text-sepia whitespace-pre-wrap">
-            {novel.content || '내용이 없습니다.'}
-          </div>
-        </div>
-      )}
-
-      {/* 댓글 섹션 */}
-      <CommentSection
-        novelId={id}
-        comments={novel.comments}
-        isLoggedIn={!!session}
-        currentUserId={session?.user?.id}
-        isAdmin={isAdmin}
-      />
     </div>
   )
 }
-

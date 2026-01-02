@@ -79,50 +79,50 @@ export default function UserManagement({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="아이디 또는 닉네임으로 검색..."
-            className="input-vintage flex-1 px-4 py-2 rounded"
+            className="input-field flex-1 px-4 py-3 rounded bg-[#333]"
           />
-          <button type="submit" className="btn-primary px-6 py-2 rounded">
+          <button type="submit" className="btn-primary px-6 py-3 rounded">
             검색
           </button>
         </div>
       </form>
 
       {/* 사용자 목록 */}
-      <div className="card-vintage rounded-lg overflow-hidden">
-        <table className="w-full">
+      <div className="bg-[#232323] rounded overflow-hidden overflow-x-auto">
+        <table className="w-full min-w-[700px]">
           <thead>
-            <tr className="border-b border-gold-dim/30">
-              <th className="text-left p-4 text-gold-dim font-medium">아이디</th>
-              <th className="text-left p-4 text-gold-dim font-medium">닉네임</th>
-              <th className="text-left p-4 text-gold-dim font-medium">권한</th>
-              <th className="text-left p-4 text-gold-dim font-medium">작품</th>
-              <th className="text-left p-4 text-gold-dim font-medium">댓글</th>
-              <th className="text-left p-4 text-gold-dim font-medium">가입일</th>
-              <th className="text-left p-4 text-gold-dim font-medium">관리</th>
+            <tr className="border-b border-[#333]">
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">아이디</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">닉네임</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">권한</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">작품</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">댓글</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">가입일</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">관리</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr
                 key={user.id}
-                className="border-b border-gold-dim/10 hover:bg-leather/30"
+                className="border-b border-[#333]/50 hover:bg-[#2a2a2a]"
               >
-                <td className="p-4 text-sepia">{user.username}</td>
-                <td className="p-4 text-sepia">{user.nickname}</td>
+                <td className="p-4 text-[#e5e5e5]">{user.username}</td>
+                <td className="p-4 text-[#e5e5e5]">{user.nickname}</td>
                 <td className="p-4">
                   <span
                     className={`text-xs px-2 py-1 rounded ${
                       user.role === 'ADMIN'
-                        ? 'bg-velvet text-sepia'
-                        : 'bg-leather-accent text-sepia-muted'
+                        ? 'bg-[#e50914] text-white'
+                        : 'bg-[#333] text-[#808080]'
                     }`}
                   >
                     {user.role === 'ADMIN' ? '관리자' : '회원'}
                   </span>
                 </td>
-                <td className="p-4 text-sepia-muted">{user._count.novels}</td>
-                <td className="p-4 text-sepia-muted">{user._count.comments}</td>
-                <td className="p-4 text-sepia-muted text-sm">
+                <td className="p-4 text-[#808080]">{user._count.novels}</td>
+                <td className="p-4 text-[#808080]">{user._count.comments}</td>
+                <td className="p-4 text-[#808080] text-sm">
                   {new Date(user.createdAt).toLocaleDateString('ko-KR')}
                 </td>
                 <td className="p-4">
@@ -134,7 +134,7 @@ export default function UserManagement({
                       )
                     }
                     disabled={isLoading === user.id}
-                    className="text-xs text-gold hover:text-gold-light disabled:opacity-50"
+                    className="text-xs text-[#e50914] hover:text-[#f40612] disabled:opacity-50"
                   >
                     {isLoading === user.id
                       ? '처리중...'
@@ -151,15 +151,15 @@ export default function UserManagement({
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex justify-center gap-1 mt-6">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <Link
               key={page}
               href={`/admin/users?page=${page}${currentSearch ? `&search=${currentSearch}` : ''}`}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-2 rounded text-sm ${
                 currentPage === page
-                  ? 'bg-gold text-parchment-dark'
-                  : 'btn-secondary'
+                  ? 'bg-white text-black'
+                  : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
               }`}
             >
               {page}

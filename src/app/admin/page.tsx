@@ -58,157 +58,158 @@ export default async function AdminPage() {
   const stats = await getStats()
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 animate-fade-in">
-      {/* 헤더 */}
-      <div className="mb-10">
-        <h1 className="font-display text-4xl text-gold mb-2">🏛️ 관리자 대시보드</h1>
-        <p className="text-sepia-muted">묵향서원의 모든 것을 관리합니다</p>
-      </div>
+    <div className="min-h-screen pt-20 pb-12 px-4 animate-fade-in">
+      <div className="max-w-6xl mx-auto">
+        {/* 헤더 */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">관리자 대시보드</h1>
+          <p className="text-[#808080]">묵향서원의 모든 것을 관리합니다</p>
+        </div>
 
-      {/* 통계 카드 */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="text-3xl mb-2">👥</div>
-          <div className="text-2xl text-gold font-bold">{stats.userCount}</div>
-          <div className="text-sepia-muted text-sm">전체 회원</div>
-        </div>
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="text-3xl mb-2">📚</div>
-          <div className="text-2xl text-gold font-bold">{stats.novelCount}</div>
-          <div className="text-sepia-muted text-sm">전체 작품</div>
-        </div>
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="text-3xl mb-2">📖</div>
-          <div className="text-2xl text-gold font-bold">{stats.chapterCount}</div>
-          <div className="text-sepia-muted text-sm">전체 회차</div>
-        </div>
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="text-3xl mb-2">💬</div>
-          <div className="text-2xl text-gold font-bold">{stats.commentCount}</div>
-          <div className="text-sepia-muted text-sm">전체 댓글</div>
-        </div>
-      </div>
-
-      {/* 카테고리별 통계 */}
-      <div className="grid sm:grid-cols-2 gap-6 mb-10">
-        <div className="card-vintage p-6 rounded-lg">
-          <h3 className="font-display text-lg text-gold mb-4">📝 단편 소설</h3>
-          <div className="text-3xl text-gold-light font-bold">{stats.shortNovelCount}</div>
-        </div>
-        <div className="card-vintage p-6 rounded-lg">
-          <h3 className="font-display text-lg text-gold mb-4">📚 장편 소설</h3>
-          <div className="text-3xl text-gold-light font-bold">{stats.longNovelCount}</div>
-        </div>
-      </div>
-
-      {/* 관리 메뉴 */}
-      <div className="grid sm:grid-cols-3 gap-6 mb-10">
-        <Link
-          href="/admin/users"
-          className="card-vintage p-6 rounded-lg hover-glow transition-all group"
-        >
-          <div className="text-3xl mb-3">👥</div>
-          <h3 className="font-display text-lg text-gold-light group-hover:text-gold transition-colors">
-            회원 관리
-          </h3>
-          <p className="text-sepia-muted text-sm mt-2">
-            회원 목록 조회 및 권한 관리
-          </p>
-        </Link>
-        <Link
-          href="/admin/novels"
-          className="card-vintage p-6 rounded-lg hover-glow transition-all group"
-        >
-          <div className="text-3xl mb-3">📚</div>
-          <h3 className="font-display text-lg text-gold-light group-hover:text-gold transition-colors">
-            작품 관리
-          </h3>
-          <p className="text-sepia-muted text-sm mt-2">
-            작품 목록 조회 및 관리
-          </p>
-        </Link>
-        <Link
-          href="/admin/comments"
-          className="card-vintage p-6 rounded-lg hover-glow transition-all group"
-        >
-          <div className="text-3xl mb-3">💬</div>
-          <h3 className="font-display text-lg text-gold-light group-hover:text-gold transition-colors">
-            댓글 관리
-          </h3>
-          <p className="text-sepia-muted text-sm mt-2">
-            댓글 목록 조회 및 삭제
-          </p>
-        </Link>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* 최근 작품 */}
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-display text-lg text-gold">최근 등록된 작품</h3>
-            <Link
-              href="/admin/novels"
-              className="text-sm text-sepia-muted hover:text-gold"
-            >
-              더보기 →
-            </Link>
+        {/* 통계 카드 */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="text-3xl mb-2">👥</div>
+            <div className="text-3xl text-white font-bold">{stats.userCount}</div>
+            <div className="text-[#808080] text-sm">전체 회원</div>
           </div>
-          <div className="space-y-3">
-            {stats.recentNovels.map((novel) => (
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="text-3xl mb-2">📚</div>
+            <div className="text-3xl text-white font-bold">{stats.novelCount}</div>
+            <div className="text-[#808080] text-sm">전체 작품</div>
+          </div>
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="text-3xl mb-2">📖</div>
+            <div className="text-3xl text-white font-bold">{stats.chapterCount}</div>
+            <div className="text-[#808080] text-sm">전체 회차</div>
+          </div>
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="text-3xl mb-2">💬</div>
+            <div className="text-3xl text-white font-bold">{stats.commentCount}</div>
+            <div className="text-[#808080] text-sm">전체 댓글</div>
+          </div>
+        </div>
+
+        {/* 카테고리별 통계 */}
+        <div className="grid sm:grid-cols-2 gap-4 mb-8">
+          <div className="bg-[#232323] p-6 rounded">
+            <h3 className="text-lg text-[#e5e5e5] mb-2">📝 단편 소설</h3>
+            <div className="text-3xl text-white font-bold">{stats.shortNovelCount}</div>
+          </div>
+          <div className="bg-[#232323] p-6 rounded">
+            <h3 className="text-lg text-[#e5e5e5] mb-2">📚 장편 소설</h3>
+            <div className="text-3xl text-white font-bold">{stats.longNovelCount}</div>
+          </div>
+        </div>
+
+        {/* 관리 메뉴 */}
+        <div className="grid sm:grid-cols-3 gap-4 mb-8">
+          <Link
+            href="/admin/users"
+            className="bg-[#232323] p-6 rounded hover:bg-[#2a2a2a] transition-colors group"
+          >
+            <div className="text-3xl mb-3">👥</div>
+            <h3 className="text-lg text-white group-hover:text-[#e50914] transition-colors">
+              회원 관리
+            </h3>
+            <p className="text-[#808080] text-sm mt-2">
+              회원 목록 조회 및 권한 관리
+            </p>
+          </Link>
+          <Link
+            href="/admin/novels"
+            className="bg-[#232323] p-6 rounded hover:bg-[#2a2a2a] transition-colors group"
+          >
+            <div className="text-3xl mb-3">📚</div>
+            <h3 className="text-lg text-white group-hover:text-[#e50914] transition-colors">
+              작품 관리
+            </h3>
+            <p className="text-[#808080] text-sm mt-2">
+              작품 목록 조회 및 관리
+            </p>
+          </Link>
+          <Link
+            href="/admin/comments"
+            className="bg-[#232323] p-6 rounded hover:bg-[#2a2a2a] transition-colors group"
+          >
+            <div className="text-3xl mb-3">💬</div>
+            <h3 className="text-lg text-white group-hover:text-[#e50914] transition-colors">
+              댓글 관리
+            </h3>
+            <p className="text-[#808080] text-sm mt-2">
+              댓글 목록 조회 및 삭제
+            </p>
+          </Link>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-4">
+          {/* 최근 작품 */}
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg text-white font-medium">최근 등록된 작품</h3>
               <Link
-                key={novel.id}
-                href={`/novels/${novel.id}`}
-                className="flex justify-between items-center p-3 rounded bg-leather/30 hover:bg-leather/50 transition-colors"
+                href="/admin/novels"
+                className="text-sm text-[#808080] hover:text-white transition-colors"
               >
-                <div>
-                  <span className="text-xs px-2 py-0.5 rounded bg-leather-accent text-gold-dim mr-2">
-                    {novel.category === 'SHORT' ? '단편' : '장편'}
-                  </span>
-                  <span className="text-sepia">{novel.title}</span>
-                </div>
-                <span className="text-xs text-sepia-muted">
-                  {novel.author.nickname}
-                </span>
+                더보기 &gt;
               </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* 최근 가입 회원 */}
-        <div className="card-vintage p-6 rounded-lg">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-display text-lg text-gold">최근 가입 회원</h3>
-            <Link
-              href="/admin/users"
-              className="text-sm text-sepia-muted hover:text-gold"
-            >
-              더보기 →
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {stats.recentUsers.map((user) => (
-              <div
-                key={user.id}
-                className="flex justify-between items-center p-3 rounded bg-leather/30"
-              >
-                <div className="flex items-center gap-2">
-                  {user.role === 'ADMIN' && (
-                    <span className="text-xs px-2 py-0.5 rounded bg-velvet text-sepia">
-                      관리자
+            </div>
+            <div className="space-y-2">
+              {stats.recentNovels.map((novel) => (
+                <Link
+                  key={novel.id}
+                  href={`/novels/${novel.id}`}
+                  className="flex justify-between items-center p-3 rounded bg-[#1a1a1a] hover:bg-[#2a2a2a] transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs px-2 py-0.5 rounded bg-[#e50914] text-white">
+                      {novel.category === 'SHORT' ? '단편' : '장편'}
                     </span>
-                  )}
-                  <span className="text-sepia">{user.nickname}</span>
-                  <span className="text-xs text-sepia-muted">@{user.username}</span>
+                    <span className="text-[#e5e5e5]">{novel.title}</span>
+                  </div>
+                  <span className="text-xs text-[#808080]">
+                    {novel.author.nickname}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 최근 가입 회원 */}
+          <div className="bg-[#232323] p-6 rounded">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg text-white font-medium">최근 가입 회원</h3>
+              <Link
+                href="/admin/users"
+                className="text-sm text-[#808080] hover:text-white transition-colors"
+              >
+                더보기 &gt;
+              </Link>
+            </div>
+            <div className="space-y-2">
+              {stats.recentUsers.map((user) => (
+                <div
+                  key={user.id}
+                  className="flex justify-between items-center p-3 rounded bg-[#1a1a1a]"
+                >
+                  <div className="flex items-center gap-2">
+                    {user.role === 'ADMIN' && (
+                      <span className="text-xs px-2 py-0.5 rounded bg-[#e50914] text-white">
+                        관리자
+                      </span>
+                    )}
+                    <span className="text-[#e5e5e5]">{user.nickname}</span>
+                    <span className="text-xs text-[#808080]">@{user.username}</span>
+                  </div>
+                  <span className="text-xs text-[#808080]">
+                    작품 {user._count.novels}개
+                  </span>
                 </div>
-                <span className="text-xs text-sepia-muted">
-                  작품 {user._count.novels}개
-                </span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </div>
   )
 }
-

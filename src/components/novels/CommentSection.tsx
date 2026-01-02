@@ -128,9 +128,9 @@ export default function CommentSection({
   }
 
   return (
-    <div className="card-vintage p-6 rounded-lg">
-      <h2 className="font-display text-xl text-gold mb-6">
-        💬 댓글 ({comments.length})
+    <div>
+      <h2 className="text-xl font-bold text-white mb-6">
+        댓글 {comments.length}개
       </h2>
 
       {/* 댓글 작성 폼 */}
@@ -140,7 +140,7 @@ export default function CommentSection({
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="댓글을 작성해주세요..."
-            className="input-vintage w-full px-4 py-3 rounded min-h-[100px] resize-y mb-3"
+            className="input-field w-full px-4 py-3 rounded bg-[#333] min-h-[100px] resize-y mb-3"
           />
           <div className="flex justify-end">
             <button
@@ -153,8 +153,8 @@ export default function CommentSection({
           </div>
         </form>
       ) : (
-        <div className="mb-8 p-4 rounded bg-leather/50 text-center text-sepia-muted">
-          <a href="/auth/login" className="text-gold hover:text-gold-light">
+        <div className="mb-8 p-4 rounded bg-[#232323] text-center text-[#808080]">
+          <a href="/auth/login" className="text-[#e50914] hover:underline">
             로그인
           </a>
           하시면 댓글을 작성할 수 있습니다.
@@ -164,20 +164,19 @@ export default function CommentSection({
       {/* 댓글 목록 */}
       <div className="space-y-4">
         {comments.length === 0 ? (
-          <p className="text-center text-sepia-muted py-8">
+          <p className="text-center text-[#808080] py-8">
             아직 댓글이 없습니다. 첫 번째 댓글을 남겨보세요!
           </p>
         ) : (
           comments.map((comment) => (
-            <div key={comment.id} className="border-b border-gold-dim/20 pb-4 last:border-0">
-              {/* 댓글 */}
+            <div key={comment.id} className="border-b border-[#333] pb-4 last:border-0">
               <div className="flex items-start gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-gold-light font-medium">
+                    <span className="text-white font-medium">
                       {comment.author.nickname}
                     </span>
-                    <span className="text-xs text-sepia-muted">
+                    <span className="text-xs text-[#808080]">
                       {new Date(comment.createdAt).toLocaleDateString('ko-KR')}
                     </span>
                   </div>
@@ -187,7 +186,7 @@ export default function CommentSection({
                       <textarea
                         value={editContent}
                         onChange={(e) => setEditContent(e.target.value)}
-                        className="input-vintage w-full px-3 py-2 rounded min-h-[80px] resize-y text-sm"
+                        className="input-field w-full px-3 py-2 rounded bg-[#333] min-h-[80px] resize-y text-sm"
                       />
                       <div className="flex gap-2">
                         <button
@@ -207,12 +206,12 @@ export default function CommentSection({
                     </div>
                   ) : (
                     <>
-                      <p className="text-sepia whitespace-pre-wrap">{comment.content}</p>
+                      <p className="text-[#e5e5e5] whitespace-pre-wrap">{comment.content}</p>
                       <div className="flex gap-3 mt-2">
                         {isLoggedIn && (
                           <button
                             onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
-                            className="text-xs text-sepia-muted hover:text-gold"
+                            className="text-xs text-[#808080] hover:text-white"
                           >
                             답글
                           </button>
@@ -221,13 +220,13 @@ export default function CommentSection({
                           <>
                             <button
                               onClick={() => startEdit(comment)}
-                              className="text-xs text-sepia-muted hover:text-gold"
+                              className="text-xs text-[#808080] hover:text-white"
                             >
                               수정
                             </button>
                             <button
                               onClick={() => handleDelete(comment.id)}
-                              className="text-xs text-sepia-muted hover:text-velvet"
+                              className="text-xs text-[#808080] hover:text-[#e50914]"
                             >
                               삭제
                             </button>
@@ -243,13 +242,13 @@ export default function CommentSection({
               {replyTo === comment.id && (
                 <form
                   onSubmit={(e) => handleSubmit(e, comment.id)}
-                  className="mt-4 ml-8 p-4 bg-leather/30 rounded"
+                  className="mt-4 ml-8 p-4 bg-[#1a1a1a] rounded"
                 >
                   <textarea
                     value={replyContent}
                     onChange={(e) => setReplyContent(e.target.value)}
                     placeholder="답글을 작성해주세요..."
-                    className="input-vintage w-full px-3 py-2 rounded min-h-[80px] resize-y text-sm mb-2"
+                    className="input-field w-full px-3 py-2 rounded bg-[#333] min-h-[80px] resize-y text-sm mb-2"
                   />
                   <div className="flex gap-2 justify-end">
                     <button
@@ -276,14 +275,13 @@ export default function CommentSection({
                   {comment.replies.map((reply) => (
                     <div
                       key={reply.id}
-                      className="p-3 bg-leather/30 rounded border-l-2 border-gold-dim/30"
+                      className="p-3 bg-[#1a1a1a] rounded border-l-2 border-[#333]"
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-gold-dim text-sm">↳</span>
-                        <span className="text-gold-light font-medium text-sm">
+                        <span className="text-white font-medium text-sm">
                           {reply.author.nickname}
                         </span>
-                        <span className="text-xs text-sepia-muted">
+                        <span className="text-xs text-[#808080]">
                           {new Date(reply.createdAt).toLocaleDateString('ko-KR')}
                         </span>
                       </div>
@@ -293,7 +291,7 @@ export default function CommentSection({
                           <textarea
                             value={editContent}
                             onChange={(e) => setEditContent(e.target.value)}
-                            className="input-vintage w-full px-3 py-2 rounded min-h-[60px] resize-y text-sm"
+                            className="input-field w-full px-3 py-2 rounded bg-[#333] min-h-[60px] resize-y text-sm"
                           />
                           <div className="flex gap-2">
                             <button
@@ -313,20 +311,20 @@ export default function CommentSection({
                         </div>
                       ) : (
                         <>
-                          <p className="text-sepia text-sm whitespace-pre-wrap">
+                          <p className="text-[#e5e5e5] text-sm whitespace-pre-wrap">
                             {reply.content}
                           </p>
                           {canModify(reply.author.id) && (
                             <div className="flex gap-3 mt-2">
                               <button
                                 onClick={() => startEdit(reply)}
-                                className="text-xs text-sepia-muted hover:text-gold"
+                                className="text-xs text-[#808080] hover:text-white"
                               >
                                 수정
                               </button>
                               <button
                                 onClick={() => handleDelete(reply.id)}
-                                className="text-xs text-sepia-muted hover:text-velvet"
+                                className="text-xs text-[#808080] hover:text-[#e50914]"
                               >
                                 삭제
                               </button>
@@ -345,4 +343,3 @@ export default function CommentSection({
     </div>
   )
 }
-

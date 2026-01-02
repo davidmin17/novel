@@ -80,33 +80,33 @@ export default function NovelManagement({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="제목 또는 작가명으로 검색..."
-            className="input-vintage flex-1 px-4 py-2 rounded"
+            className="input-field flex-1 px-4 py-3 rounded bg-[#333]"
           />
-          <button type="submit" className="btn-primary px-6 py-2 rounded">
+          <button type="submit" className="btn-primary px-6 py-3 rounded">
             검색
           </button>
         </form>
         <div className="flex gap-2">
           <button
             onClick={() => handleCategoryChange('')}
-            className={`px-4 py-2 rounded text-sm ${
-              !currentCategory ? 'bg-gold text-parchment-dark' : 'btn-secondary'
+            className={`px-4 py-2 rounded text-sm transition-colors ${
+              !currentCategory ? 'bg-white text-black' : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
             }`}
           >
             전체
           </button>
           <button
             onClick={() => handleCategoryChange('SHORT')}
-            className={`px-4 py-2 rounded text-sm ${
-              currentCategory === 'SHORT' ? 'bg-gold text-parchment-dark' : 'btn-secondary'
+            className={`px-4 py-2 rounded text-sm transition-colors ${
+              currentCategory === 'SHORT' ? 'bg-white text-black' : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
             }`}
           >
             단편
           </button>
           <button
             onClick={() => handleCategoryChange('LONG')}
-            className={`px-4 py-2 rounded text-sm ${
-              currentCategory === 'LONG' ? 'bg-gold text-parchment-dark' : 'btn-secondary'
+            className={`px-4 py-2 rounded text-sm transition-colors ${
+              currentCategory === 'LONG' ? 'bg-white text-black' : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
             }`}
           >
             장편
@@ -115,71 +115,71 @@ export default function NovelManagement({
       </div>
 
       {/* 작품 목록 */}
-      <div className="card-vintage rounded-lg overflow-hidden overflow-x-auto">
-        <table className="w-full min-w-[800px]">
+      <div className="bg-[#232323] rounded overflow-hidden overflow-x-auto">
+        <table className="w-full min-w-[900px]">
           <thead>
-            <tr className="border-b border-gold-dim/30">
-              <th className="text-left p-4 text-gold-dim font-medium">제목</th>
-              <th className="text-left p-4 text-gold-dim font-medium">분류</th>
-              <th className="text-left p-4 text-gold-dim font-medium">작가</th>
-              <th className="text-left p-4 text-gold-dim font-medium">조회</th>
-              <th className="text-left p-4 text-gold-dim font-medium">좋아요</th>
-              <th className="text-left p-4 text-gold-dim font-medium">회차</th>
-              <th className="text-left p-4 text-gold-dim font-medium">상태</th>
-              <th className="text-left p-4 text-gold-dim font-medium">등록일</th>
-              <th className="text-left p-4 text-gold-dim font-medium">관리</th>
+            <tr className="border-b border-[#333]">
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">제목</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">분류</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">작가</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">조회</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">좋아요</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">회차</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">상태</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">등록일</th>
+              <th className="text-left p-4 text-[#808080] font-medium text-sm">관리</th>
             </tr>
           </thead>
           <tbody>
             {novels.map((novel) => (
               <tr
                 key={novel.id}
-                className="border-b border-gold-dim/10 hover:bg-leather/30"
+                className="border-b border-[#333]/50 hover:bg-[#2a2a2a]"
               >
                 <td className="p-4">
                   <Link
                     href={`/novels/${novel.id}`}
-                    className="text-sepia hover:text-gold"
+                    className="text-[#e5e5e5] hover:text-[#e50914] transition-colors"
                   >
                     {novel.title}
                   </Link>
                 </td>
                 <td className="p-4">
-                  <span className="text-xs px-2 py-1 rounded bg-leather-accent text-gold-dim">
+                  <span className="text-xs px-2 py-1 rounded bg-[#e50914] text-white">
                     {novel.category === 'SHORT' ? '단편' : '장편'}
                   </span>
                 </td>
-                <td className="p-4 text-sepia-muted">{novel.author.nickname}</td>
-                <td className="p-4 text-sepia-muted">{novel.viewCount}</td>
-                <td className="p-4 text-sepia-muted">{novel.likeCount}</td>
-                <td className="p-4 text-sepia-muted">
+                <td className="p-4 text-[#808080]">{novel.author.nickname}</td>
+                <td className="p-4 text-[#808080]">{novel.viewCount}</td>
+                <td className="p-4 text-[#808080]">{novel.likeCount}</td>
+                <td className="p-4 text-[#808080]">
                   {novel.category === 'LONG' ? `${novel._count.chapters}화` : '-'}
                 </td>
                 <td className="p-4">
                   <span
                     className={`text-xs px-2 py-1 rounded ${
                       novel.isPublished
-                        ? 'bg-green-900/50 text-green-300'
-                        : 'bg-velvet/50 text-sepia'
+                        ? 'bg-green-600/20 text-green-400'
+                        : 'bg-[#333] text-[#808080]'
                     }`}
                   >
                     {novel.isPublished ? '공개' : '비공개'}
                   </span>
                 </td>
-                <td className="p-4 text-sepia-muted text-sm">
+                <td className="p-4 text-[#808080] text-sm">
                   {new Date(novel.createdAt).toLocaleDateString('ko-KR')}
                 </td>
                 <td className="p-4">
-                  <div className="flex gap-2">
+                  <div className="flex gap-3">
                     <Link
                       href={`/novels/${novel.id}/edit`}
-                      className="text-xs text-gold hover:text-gold-light"
+                      className="text-xs text-[#e5e5e5] hover:text-white"
                     >
                       수정
                     </Link>
                     <button
                       onClick={() => handleDelete(novel.id, novel.title)}
-                      className="text-xs text-velvet hover:text-velvet-hover"
+                      className="text-xs text-[#e50914] hover:text-[#f40612]"
                     >
                       삭제
                     </button>
@@ -193,16 +193,16 @@ export default function NovelManagement({
 
       {/* 페이지네이션 */}
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="flex justify-center gap-1 mt-6">
           {Array.from({ length: Math.min(totalPages, 10) }, (_, i) => i + 1).map(
             (page) => (
               <Link
                 key={page}
                 href={`/admin/novels?page=${page}${currentSearch ? `&search=${currentSearch}` : ''}${currentCategory ? `&category=${currentCategory}` : ''}`}
-                className={`px-3 py-1 rounded ${
+                className={`px-3 py-2 rounded text-sm ${
                   currentPage === page
-                    ? 'bg-gold text-parchment-dark'
-                    : 'btn-secondary'
+                    ? 'bg-white text-black'
+                    : 'bg-[#333] text-[#e5e5e5] hover:bg-[#404040]'
                 }`}
               >
                 {page}

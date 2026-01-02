@@ -9,46 +9,40 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-parchment border-b border-gold-dim/30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16">
           {/* 로고 */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="text-3xl">📜</div>
-            <div className="flex flex-col">
-              <span className="font-display text-2xl text-gold font-semibold tracking-wide group-hover:text-gold-light transition-colors">
-                墨香書院
-              </span>
-              <span className="text-xs text-sepia-muted tracking-widest">
-                NOVEL ARCHIVE
-              </span>
-            </div>
+          <Link href="/" className="flex items-center space-x-2 group">
+            <span className="text-[#e50914] text-2xl font-black tracking-tight">
+              묵향서원
+            </span>
           </Link>
 
           {/* 데스크톱 네비게이션 */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             <Link
               href="/novels"
-              className="text-sepia hover:text-gold transition-colors font-medium"
+              className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
             >
-              작품 목록
+              전체 작품
             </Link>
             <Link
               href="/novels?category=SHORT"
-              className="text-sepia hover:text-gold transition-colors font-medium"
+              className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
             >
               단편
             </Link>
             <Link
               href="/novels?category=LONG"
-              className="text-sepia hover:text-gold transition-colors font-medium"
+              className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
             >
               장편
             </Link>
             {session && (
               <Link
                 href="/novels/write"
-                className="text-sepia hover:text-gold transition-colors font-medium"
+                className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
               >
                 작품 등록
               </Link>
@@ -61,22 +55,21 @@ export default function Header() {
               <div className="flex items-center space-x-4">
                 <Link
                   href="/mypage"
-                  className="text-sepia hover:text-gold transition-colors"
+                  className="text-[#e5e5e5] hover:text-white transition-colors text-sm"
                 >
-                  <span className="text-gold-dim">✦</span>
-                  <span className="ml-2">{session.user.nickname}</span>
+                  {session.user.nickname}
                 </Link>
                 {session.user.role === 'ADMIN' && (
                   <Link
                     href="/admin"
-                    className="text-velvet hover:text-velvet-hover transition-colors text-sm"
+                    className="text-[#e50914] hover:text-[#f40612] transition-colors text-sm font-medium"
                   >
                     관리자
                   </Link>
                 )}
                 <button
                   onClick={() => signOut()}
-                  className="btn-secondary px-4 py-2 rounded text-sm"
+                  className="text-[#b3b3b3] hover:text-white transition-colors text-sm"
                 >
                   로그아웃
                 </button>
@@ -85,13 +78,13 @@ export default function Header() {
               <div className="flex items-center space-x-3">
                 <Link
                   href="/auth/login"
-                  className="text-sepia hover:text-gold transition-colors"
+                  className="text-[#e5e5e5] hover:text-white transition-colors text-sm"
                 >
                   로그인
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="btn-primary px-4 py-2 rounded text-sm"
+                  className="btn-primary px-4 py-1.5 rounded text-sm"
                 >
                   회원가입
                 </Link>
@@ -102,7 +95,7 @@ export default function Header() {
           {/* 모바일 메뉴 버튼 */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gold p-2"
+            className="md:hidden text-white p-2"
           >
             <svg
               className="w-6 h-6"
@@ -131,25 +124,25 @@ export default function Header() {
 
         {/* 모바일 메뉴 */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gold-dim/30">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden py-4 bg-[#141414] border-t border-[#333]">
+            <nav className="flex flex-col space-y-4 px-2">
               <Link
                 href="/novels"
-                className="text-sepia hover:text-gold transition-colors"
+                className="text-[#e5e5e5] hover:text-white transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                작품 목록
+                전체 작품
               </Link>
               <Link
                 href="/novels?category=SHORT"
-                className="text-sepia hover:text-gold transition-colors"
+                className="text-[#e5e5e5] hover:text-white transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 단편
               </Link>
               <Link
                 href="/novels?category=LONG"
-                className="text-sepia hover:text-gold transition-colors"
+                className="text-[#e5e5e5] hover:text-white transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 장편
@@ -158,14 +151,14 @@ export default function Header() {
                 <>
                   <Link
                     href="/novels/write"
-                    className="text-sepia hover:text-gold transition-colors"
+                    className="text-[#e5e5e5] hover:text-white transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     작품 등록
                   </Link>
                   <Link
                     href="/mypage"
-                    className="text-sepia hover:text-gold transition-colors"
+                    className="text-[#e5e5e5] hover:text-white transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     마이페이지
@@ -173,7 +166,7 @@ export default function Header() {
                   {session.user.role === 'ADMIN' && (
                     <Link
                       href="/admin"
-                      className="text-velvet hover:text-velvet-hover transition-colors"
+                      className="text-[#e50914] hover:text-[#f40612] transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       관리자
@@ -184,7 +177,7 @@ export default function Header() {
                       signOut()
                       setIsMenuOpen(false)
                     }}
-                    className="text-left text-sepia-muted hover:text-gold transition-colors"
+                    className="text-left text-[#b3b3b3] hover:text-white transition-colors"
                   >
                     로그아웃
                   </button>
@@ -193,14 +186,14 @@ export default function Header() {
                 <>
                   <Link
                     href="/auth/login"
-                    className="text-sepia hover:text-gold transition-colors"
+                    className="text-[#e5e5e5] hover:text-white transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     로그인
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="text-gold hover:text-gold-light transition-colors"
+                    className="text-[#e50914] hover:text-[#f40612] transition-colors font-medium"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     회원가입
@@ -214,4 +207,3 @@ export default function Header() {
     </header>
   )
 }
-

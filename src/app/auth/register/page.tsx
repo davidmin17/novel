@@ -19,7 +19,6 @@ export default function RegisterPage() {
     e.preventDefault()
     setError('')
 
-    // 클라이언트 유효성 검사
     if (formData.password !== formData.passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.')
       return
@@ -45,7 +44,6 @@ export default function RegisterPage() {
         return
       }
 
-      // 성공 시 로그인 페이지로 이동
       router.push('/auth/login?registered=true')
     } catch {
       setError('회원가입 중 오류가 발생했습니다.')
@@ -55,43 +53,30 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 animate-fade-in">
+    <div className="min-h-screen flex items-center justify-center px-4 py-24 bg-[#141414]">
       <div className="w-full max-w-md">
-        <div className="card-vintage p-8 rounded-lg">
+        <div className="bg-black/75 p-12 rounded">
           {/* 헤더 */}
-          <div className="text-center mb-8">
-            <div className="text-4xl mb-4">✍️</div>
-            <h1 className="font-display text-3xl text-gold mb-2">회원가입</h1>
-            <p className="text-sepia-muted text-sm">
-              묵향서원의 작가가 되어보세요
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold text-white mb-8">회원가입</h1>
 
           {/* 에러 메시지 */}
           {error && (
-            <div className="mb-6 p-4 rounded bg-velvet/20 border border-velvet text-sepia text-sm">
+            <div className="mb-4 p-4 rounded bg-[#e87c03]/20 border border-[#e87c03] text-[#e87c03] text-sm">
               {error}
             </div>
           )}
 
           {/* 폼 */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm text-sepia-muted mb-2"
-              >
-                아이디
-              </label>
               <input
                 type="text"
-                id="username"
                 value={formData.username}
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
-                className="input-vintage w-full px-4 py-3 rounded"
-                placeholder="4~20자의 아이디"
+                className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+                placeholder="아이디 (4~20자)"
                 minLength={4}
                 maxLength={20}
                 required
@@ -99,21 +84,14 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="nickname"
-                className="block text-sm text-sepia-muted mb-2"
-              >
-                닉네임
-              </label>
               <input
                 type="text"
-                id="nickname"
                 value={formData.nickname}
                 onChange={(e) =>
                   setFormData({ ...formData, nickname: e.target.value })
                 }
-                className="input-vintage w-full px-4 py-3 rounded"
-                placeholder="2~20자의 닉네임"
+                className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+                placeholder="닉네임 (2~20자)"
                 minLength={2}
                 maxLength={20}
                 required
@@ -121,42 +99,28 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm text-sepia-muted mb-2"
-              >
-                비밀번호
-              </label>
               <input
                 type="password"
-                id="password"
                 value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="input-vintage w-full px-4 py-3 rounded"
-                placeholder="최소 6자 이상"
+                className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+                placeholder="비밀번호 (6자 이상)"
                 minLength={6}
                 required
               />
             </div>
 
             <div>
-              <label
-                htmlFor="passwordConfirm"
-                className="block text-sm text-sepia-muted mb-2"
-              >
-                비밀번호 확인
-              </label>
               <input
                 type="password"
-                id="passwordConfirm"
                 value={formData.passwordConfirm}
                 onChange={(e) =>
                   setFormData({ ...formData, passwordConfirm: e.target.value })
                 }
-                className="input-vintage w-full px-4 py-3 rounded"
-                placeholder="비밀번호를 다시 입력하세요"
+                className="input-field w-full px-4 py-4 rounded bg-[#333] text-white"
+                placeholder="비밀번호 확인"
                 required
               />
             </div>
@@ -164,19 +128,16 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn-primary w-full py-3 rounded font-medium disabled:opacity-50"
+              className="btn-primary w-full py-3 rounded font-semibold text-base disabled:opacity-50 mt-6"
             >
-              {isLoading ? '가입 중...' : '회원가입'}
+              {isLoading ? '가입 중...' : '가입하기'}
             </button>
           </form>
 
-          {/* 구분선 */}
-          <div className="divider-ornate my-8" />
-
           {/* 로그인 링크 */}
-          <p className="text-center text-sepia-muted text-sm">
+          <p className="text-[#b3b3b3] mt-8">
             이미 회원이신가요?{' '}
-            <Link href="/auth/login" className="text-gold hover:text-gold-light">
+            <Link href="/auth/login" className="text-white hover:underline">
               로그인
             </Link>
           </p>
@@ -185,4 +146,3 @@ export default function RegisterPage() {
     </div>
   )
 }
-
