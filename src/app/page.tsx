@@ -81,12 +81,20 @@ export default async function HomePage() {
               작품 둘러보기
             </Link>
             {isLoggedIn ? (
-              <Link
-                href="/novels/write"
-                className="btn-secondary px-8 py-3 rounded text-lg font-semibold inline-flex items-center justify-center"
-              >
-                ✍️ 글쓰기
-              </Link>
+              <>
+                <Link
+                  href="/novels/write"
+                  className="btn-secondary px-8 py-3 rounded text-lg font-semibold inline-flex items-center justify-center"
+                >
+                  ✍️ 글쓰기
+                </Link>
+                <Link
+                  href="/novels/ai-write"
+                  className="px-8 py-3 rounded text-lg font-semibold inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white transition-all"
+                >
+                  🤖 AI 글쓰기
+                </Link>
+              </>
             ) : (
               <Link
                 href="/auth/register"
@@ -184,12 +192,20 @@ export default async function HomePage() {
                   머릿속에 떠오르는 이야기가 있나요?
                   지금 바로 작품을 등록하고 독자들과 만나보세요.
                 </p>
-                <Link
-                  href="/novels/write"
-                  className="btn-primary px-8 py-3 rounded text-lg font-semibold inline-flex items-center gap-2"
-                >
-                  ✍️ 새 작품 쓰기
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/novels/write"
+                    className="btn-primary px-8 py-3 rounded text-lg font-semibold inline-flex items-center gap-2"
+                  >
+                    ✍️ 새 작품 쓰기
+                  </Link>
+                  <Link
+                    href="/novels/ai-write"
+                    className="px-8 py-3 rounded text-lg font-semibold inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white transition-all"
+                  >
+                    🤖 AI로 작성하기
+                  </Link>
+                </div>
               </>
             ) : (
               <>

@@ -40,12 +40,20 @@ export default function Header() {
               장편
             </Link>
             {session && (
-              <Link
-                href="/novels/write"
-                className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
-              >
-                작품 등록
-              </Link>
+              <>
+                <Link
+                  href="/novels/write"
+                  className="text-[#e5e5e5] hover:text-white transition-colors text-sm font-medium"
+                >
+                  작품 등록
+                </Link>
+                <Link
+                  href="/novels/ai-write"
+                  className="text-purple-400 hover:text-purple-300 transition-colors text-sm font-medium"
+                >
+                  🤖 AI 글쓰기
+                </Link>
+              </>
             )}
           </nav>
 
@@ -155,6 +163,13 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     작품 등록
+                  </Link>
+                  <Link
+                    href="/novels/ai-write"
+                    className="text-purple-400 hover:text-purple-300 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    🤖 AI 글쓰기
                   </Link>
                   <Link
                     href="/mypage"
