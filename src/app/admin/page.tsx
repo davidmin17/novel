@@ -63,7 +63,7 @@ export default async function AdminPage() {
         {/* 헤더 */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">관리자 대시보드</h1>
-          <p className="text-[#808080]">묵향서원의 모든 것을 관리합니다</p>
+          <p className="text-[#808080]">WriteUs의 모든 것을 관리합니다</p>
         </div>
 
         {/* 통계 카드 */}

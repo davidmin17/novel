@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* 로고 */}
           <div className="flex items-center space-x-4">
-            <span className="text-[#e50914] text-xl font-black">묵향서원</span>
+            <span className="text-[#e50914] text-xl font-black">WriteUs</span>
             <span className="text-[#808080] text-sm">당신의 이야기가 시작되는 곳</span>
           </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
         {/* 저작권 */}
         <div className="mt-6 pt-6 border-t border-[#333] text-center">
           <p className="text-[#808080] text-xs">
-            © {new Date().getFullYear()} 묵향서원. All rights reserved.
+            © {new Date().getFullYear()} WriteUs. All rights reserved.
           </p>
         </div>
       </div>

@@ -15,7 +15,7 @@ export default function Header() {
           {/* 로고 */}
           <Link href="/" className="flex items-center space-x-2 group">
             <span className="text-[#e50914] text-2xl font-black tracking-tight">
-              묵향서원
+              WriteUs
             </span>
           </Link>
 

@@ -64,7 +64,7 @@ export default async function HomePage() {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight">
-            <span className="text-[#e50914]">묵향서원</span>
+            <span className="text-[#e50914]">WriteUs</span>
           </h1>
           <p className="text-xl md:text-2xl text-[#e5e5e5] mb-4">
             당신의 이야기가 시작되는 곳
